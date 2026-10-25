@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://esm-platform.local/schemas/study-configuration.schema.json",
+  "title": "ESM Study Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "studyId", "version", "status", "title", "description", "consent", "lifecycle", "sampling", "questions", "llmPolicy"],
+  "properties": {
+    "schemaVersion": {"type": "string", "minLength": 1},
+    "studyId": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["draft", "validated", "approved", "published", "paused", "ended"]},
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "description": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "text", "aiAdaptationDisclosure", "dataProcessingPurposes"],
+      "properties": {
+        "version": {"type": "integer", "minimum": 1},
+        "text": {"type": "string", "minLength": 1},
+        "aiAdaptationDisclosure": {"type": "boolean"},
+        "dataProcessingPurposes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["startAt", "endAt", "timezone"],
+      "properties": {
+        "startAt": {"type": "string", "format": "date-time"},
+        "endAt": {"type": "string", "format": "date-time"},
+        "timezone": {"type": "string", "minLength": 1}
+      }
+    },
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dailyLimit", "quietHours", "rules"],
+      "properties": {
+        "dailyLimit": {"type": "integer", "minimum": 1, "maximum": 100},
+        "quietHours": {"type": "array", "items": {"type": "object"}},
+        "rules": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "questions": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "llmPolicy": {"type": "object"}
+  }
+}

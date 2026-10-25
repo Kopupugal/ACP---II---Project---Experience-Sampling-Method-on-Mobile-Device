@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Researcher dashboard for the ESM platform" />
+    <title>ESM Researcher Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <main class="app-shell">
+      <section id="auth-view" class="auth-layout">
+        <div class="brand-panel">
+          <div class="brand-mark">E</div>
+          <p class="eyebrow">Experience Sampling Method</p>
+          <h1>Turn research questions into thoughtful daily signals.</h1>
+          <p class="muted-on-dark">Configure, validate, and publish participant studies from one focused workspace.</p>
+          <div class="feature-list"><span>✓ Versioned study configurations</span><span>✓ Researcher-controlled publication</span><span>✓ Ready for offline participant delivery</span></div>
+        </div>
+        <div class="auth-card card">
+          <div class="auth-tabs" role="tablist" aria-label="Account actions"><button class="tab active" data-auth-mode="login" role="tab">Sign in</button><button class="tab" data-auth-mode="register" role="tab">Create account</button></div>
+          <div class="section-heading"><p class="eyebrow">Researcher workspace</p><h2 id="auth-title">Welcome back</h2><p id="auth-subtitle" class="muted">Sign in to manage your studies.</p></div>
+          <form id="auth-form" class="form-stack"><label class="register-only hidden">Display name<input id="display-name" type="text" autocomplete="name" /></label><label>Email<input id="email" type="email" autocomplete="email" required /></label><label>Password<input id="password" type="password" autocomplete="current-password" minlength="12" required /></label><button class="button primary" type="submit"><span id="auth-submit">Sign in</span><span class="button-arrow">→</span></button></form>
+          <p id="auth-error" class="form-error" role="alert"></p>
+        </div>
+      </section>
+
+      <section id="dashboard-view" class="dashboard hidden">
+        <header class="topbar"><a class="wordmark" href="/">ESM<span>·</span>Lab</a><div class="topbar-actions"><span id="user-label" class="user-label"></span><button id="logout-button" class="button ghost" type="button">Sign out</button></div></header>
+        <div class="dashboard-content">
+          <div class="page-heading"><div><p class="eyebrow">Research workspace</p><h1>Study dashboard</h1><p class="muted">Create and prepare your next experience sampling study.</p></div><button id="new-study-button" class="button primary" type="button">＋ New study</button></div>
+          <div class="metric-grid"><article class="metric-card card"><span class="metric-label">Total studies</span><strong id="total-studies">0</strong><span class="metric-note">Your workspace</span></article><article class="metric-card card"><span class="metric-label">Published</span><strong id="published-studies">0</strong><span class="metric-note">Ready to distribute</span></article><article class="metric-card card"><span class="metric-label">Drafts</span><strong id="draft-studies">0</strong><span class="metric-note">In preparation</span></article></div>
+          <section class="workspace-grid"><div class="card studies-panel"><div class="panel-heading"><div><h2>Your studies</h2><p class="muted">Manage configuration versions and publication status.</p></div><button id="refresh-button" class="icon-button" type="button" aria-label="Refresh studies">↻</button></div><div id="study-list" class="study-list"><div class="empty-state"><div class="empty-icon">⌁</div><h3>No studies yet</h3><p>Create your first study to begin.</p></div></div></div><aside class="card guidance-panel"><div class="guidance-icon">✦</div><h2>Start with the protocol</h2><p class="muted">Keep your first prompt short, focused, and answerable in under a minute.</p><ul><li>Define one clear research objective</li><li>Use 3–8 questions per prompt</li><li>Review before publishing</li></ul></aside></section>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="study-dialog" class="study-dialog"><form id="study-form" class="dialog-card"><div class="dialog-heading"><div><p class="eyebrow">Study configuration</p><h2>Create a draft study</h2></div><button id="close-dialog" class="close-button" type="button" aria-label="Close">×</button></div><p class="muted dialog-intro">This first version creates a validated draft using the shared study contract.</p><div class="form-grid"><label class="full-width">Study title<input id="study-title" required maxlength="200" placeholder="Daily experience study" /></label><label class="full-width">Description<textarea id="study-description" required maxlength="2000" rows="3" placeholder="What do you want to learn?"></textarea></label><label>Start date<input id="start-date" type="date" required /></label><label>End date<input id="end-date" type="date" required /></label><label>Daily prompt limit<input id="daily-limit" type="number" min="1" max="100" value="5" required /></label><label>Timezone<input id="timezone" value="Europe/Helsinki" required /></label><label class="full-width">First question<input id="question-text" required maxlength="500" placeholder="How are you feeling right now?" /></label><label>Low label<input id="low-label" value="Very low" required /></label><label>High label<input id="high-label" value="Very high" required /></label></div><p id="study-error" class="form-error" role="alert"></p><div class="dialog-actions"><button id="cancel-dialog" class="button secondary" type="button">Cancel</button><button class="button primary" type="submit">Create draft <span>→</span></button></div></form></dialog>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
